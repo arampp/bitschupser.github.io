@@ -8,9 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-18.04
-    defaults:
-      run:
-        working-directory: /src
+
     steps:
       - uses: actions/checkout@v2
         with:
@@ -24,11 +22,11 @@ jobs:
           # extended: true
 
       - name: Build
-        run: hugo --minify
+        run: hugo --minify --source src
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
+          publish_dir: ./src/public
           
