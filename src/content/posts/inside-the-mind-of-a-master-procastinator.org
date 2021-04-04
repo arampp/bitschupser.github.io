@@ -1,0 +1,17 @@
+#+TITLE: "Inside the Mind of a Master Procastinator"
+#+DATE: 2021-04-04T10:27:34+02:00
+#+TAGS[]: personal-leadership soft-skills talks
+#+DRAFT: false
+
+Yesterday, I watched a very inspiring TED talk.
+
+- Link to TED talk: [[https://youtu.be/arj7oStGLkU][Inside the mind of a master procrastinator | Tim Urban - YouTube]]
+- Speaker's blog: [[https://waitbutwhy.com/][Wait But Why]]
+- Nice picture: 3 persons in the head
+  + The "Rational Decision Maker"
+  + The "Instant Gratification Monkey"
+  + The "Panic Monster"
+- Very entertaining speaker
+- Procastination whit things having a deadline: System works because Panic Monster kicks in
+- Problem are areas where no deadlines are in (e.g. health, self development, starting a side business, etc.)
+- "A life calendar" (1 page, boxes for a 90 year life)

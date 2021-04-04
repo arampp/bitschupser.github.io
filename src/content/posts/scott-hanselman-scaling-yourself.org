@@ -1,0 +1,40 @@
+#+TITLE: "Scott Hanselman: Scaling Yourself"
+#+DATE: 2021-04-04T10:10:21+02:00
+#+TAGS[]: personal-leadership soft-skills talks
+#+DRAFT: false
+
+Yesterday I saw an interesting talk on YouTube:
+[[https://youtu.be/V4NJo2Mfvrc][🚀 DevTernity 2019: Scott Hanselman – Scaling Yourself]]
+
+My notes:
+
++ "Every system is designed to make us feel bad" (3:30)
++ Many productive things are just showing up (8:00)
++ "The less you do, the more of it you can do" (10:00)
+  - => Saying no is a very powerfull tool
++ Effective: Goal oriented "doing the right things"
++ Efficient: Process oriented "doing things right"
++ "Psychic Weight" of television shows I wanna see
++ Rule of 3: Write down three outcomes
+  - ...for the day
+  - ...for the week
+  - ...for the year
++ Monday Vision - Friday Reflection
++ Homework:
+  - Identify your data streams
+  - Sort by Signal vs. Noise
+  - Which packets can be dropped?
++ Scotts E-Mail proces (36:00 ff)
+  - Inbox
+  - Inbox CC
+  - Inbox external
++ "You teach people how they treat you"
++ Double your keystrokes
+  - Write a blog post and send a link instead email reply
++ Find a trusted source for stuff and put it there (43:00)
++ Schedule Work Sprints (Pomodoro Technique) (44:00)
++ "Remind yourself that everything that is important will find its way to you" (46:00)
++ "Don't set up 'guilt systems'" (e.g. Pile of books you want to read)
+  - Instead: pile of books you actually read
++ Recomendation: Rescue Time
++ Recomendation: 43 Folders for physical things

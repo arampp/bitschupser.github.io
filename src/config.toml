@@ -1,7 +1,7 @@
 baseURL = "https://dev.alexrampp.de/"
 languageCode = "en-us"
 defaultContentLanguage = "en"
-title = "My New Hugo Site"
+title = "My personal blog"
 theme = "uBlogger"
 
 [params]
