@@ -1,0 +1,57 @@
+#+TITLE: "First Look Into Azure Static Web Apps"
+#+DATE: 2021-07-01T20:57:43+02:00
+#+TAGS[]: azure
+#+DRAFT: true
+
+- Transfer an existing GitHub pages app to Azure devops
+- Page will be built with hugo
+
+* Initial Situation
+  A while ago, I greated a [[https://github.com/BitSchupser/bitschupser.github.io][static GitHub page]] serving a blog using the
+  static web page generator [[https://gohugo.io/][HUGO]]. There was a GitHub action that
+  triggered new build and deployed the site everytime I pushed to the
+  master branch.
+
+  The aim of the task described here is to keep the repository but
+  replace build, deployment and hosting by Azure Static Web Apps.
+
+* Preparations
+    Before we can start, there need some preparations and cleanup work to be done:
+  1. Delete existing GitHub pages build action, environment and the gh-pages branch.
+  2. Delete the existing GitHub actions yaml file.
+  3. Create a new resource group in Azure portal.
+
+* Creating the Resource
+
+  Creating the resource is straight forward. Choose "New Static Web
+  App", give it a name and a region. Under deployment details, we have
+  to connect the web app to our GitHub account and add the
+  organization, repository and branch the web app should be built
+  from.
+
+  #+CAPTION: Setting up the Static Web App resource
+  [[/images/github-to-static-webapps/create-resource.png]]
+
+  Under "Build Details" we can configure how the app gets
+  built. Luckily there is already a preset for HUGO, so we can build
+  the site out of the box. There are also other build presets for:
+
+  - Frameworks
+    - Angular
+    - React
+    - Svelte
+    - Vue.js
+    - (client-side) Blazor
+  - Static site generators
+    - Gatsby
+    - Hugo
+    - VuePress
+
+For other technologies, we could choose "Custom" and configure the
+build as a step in GitHub actions.
+
+* Adding a custom domain
+
+* Adding a change
+
+* Looking under the hood
