@@ -1,7 +1,7 @@
 #+TITLE: "First Look Into Azure Static Web Apps"
 #+DATE: 2021-07-01T20:57:43+02:00
 #+TAGS[]: azure
-#+DRAFT: true
+#+DRAFT: false
 
 - Transfer an existing GitHub pages app to Azure devops
 - Page will be built with hugo
