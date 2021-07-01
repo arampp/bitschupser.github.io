@@ -1,0 +1,101 @@
+#+TITLE: "How to Paste Images Into Emacs Org Mode Running in Windows Subsystem for Linux"
+#+DATE: 2020-11-07T10:10:21+02:00
+#+TAGS[]: emacs orgmode note-taking
+#+DRAFT: false
+
+I organize myself by implementing Getting Things Done using plain text
+files processed by Emacs org-mode. Since Emacs origins from the Unix
+eco system, there are some obstacles when running on Windows. One of
+it is pasting images from the clipboard.
+
+* My Environment
+I am running GNU Emacs version 27.1 with the configuration framework
+Doom on a Windows 10 machine within Windows Subsystem for Linux 2
+(WSL2). I use the Ubuntu Linux 20.04 LTS distribution and integrate
+the Emacs GUI into my windows desktop using the VcXsrv Windows X
+Server in version 1.20.8.1. Furthermore I have PowerShell version 5.1
+(default shipped with Windows 10).
+
+* Problem
+During work, I often take screenshots using the Windows clipboard tool
+and paste them directly into my notes. In org-mode it is possible link
+images from a text file and display them within Emacs and there are
+existing solutions to paste and display images directly into org
+files. Unfortunately, VcXsrv does not support sharing images via
+clipboard (there is an open feature request) so all the existing
+solutions won’t work.
+
+* Solution
+In WSL2, it is possible to launch windows applications from the linux
+shell. Hence it is possible to call PowerShell and leveraging its
+scripting capabilities. It turns out, that saving an image from the
+clipboard can be achieved with the following one liner:
+
+#+BEGIN_SRC emacs-lisp
+(Get-Clipboard -Format image).Save('somefilename.png')
+With the help of this, I was able to assemble the following lisp function to get the job done:
+
+(defun my-org-paste-image ()
+  "Paste an image into a time stamped unique-named file in the
+same directory as the org-buffer and insert a link to this file."
+  (interactive)
+  (let* ((target-file
+          (concat
+           (make-temp-name
+            (concat (buffer-file-name)
+                    "_"
+                    (format-time-string "%Y%m%d_%H%M%S_"))) ".png"))
+         (wsl-path
+          (concat (as-windows-path(file-name-directory target-file))
+                  "\"
+                  (file-name-nondirectory target-file)))
+         (ps-script
+          (concat "(Get-Clipboard -Format image).Save('" wsl-path "')")))
+
+    (powershell ps-script)
+
+    (if (file-exists-p target-file)
+        (progn (insert (concat "[[" target-file "]]"))
+               (org-display-inline-images))
+      (user-error
+       "Error pasting the image, make sure you have an image in the clipboard!"))
+    ))
+
+(defun as-windows-path (unix-path)
+  "Takes a unix path and returns a matching WSL path
+(e.g. \\wsl$\Ubuntu-20.04\tmp)"
+  ;; substring removes the trailing \n
+  (substring
+   (shell-command-to-string
+    (concat "wslpath -w " unix-path)) 0 -1))
+
+(defun powershell (script)
+  "executes the given script within a powershell and returns its return value"
+  (call-process "powershell.exe" nil nil nil
+                "-Command" (concat "& {" script "}")))
+
+#+END_SRC
+
+First, it creates a variable called target-file which is an absolute
+Unix path to the file that should be created
+(e.g. ’/home/user/test.png’). The challenge is, that PowerShell cannot
+access this path since it’s only valid within the Unix file
+system. Luckily, WSL2 maps the Unix file system into windows defining
+the network path \wsl$\. It also provides the utility wslpath to
+convert paths back and forth between Unix and Windows
+conventions. Leveraging this, we can define the variable wsl-path,
+which is the Windows-compatible version of target-file and the
+resulting ps-script we have to hand over to PowerShell.
+
+Finally we call PowerShell with ps-script which results in a new png
+file located at target-path on success. If it was successful, we
+insert it as a link into the current document and display it as inline
+image. If the file was not created (this usually happens when there
+was no image in the clipboard), we’ll display an error message to the
+user.
+
+* Conclusion
+Leveraging PowerShell in a WSL2 system seems to be really
+powerful. With a few lines of lisp, it is possible to call Windows
+commands directly from Emacs. This fact opens a whole space of new
+possibilities on integrating Emacs (and org-mode) on Windows systems.
