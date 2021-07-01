@@ -3,9 +3,6 @@
 #+TAGS[]: azure
 #+DRAFT: false
 
-- Transfer an existing GitHub pages app to Azure devops
-- Page will be built with hugo
-
 * Initial Situation
   A while ago, I created a [[https://github.com/BitSchupser/bitschupser.github.io][static GitHub page]] serving a blog using the
   static web page generator [[https://gohugo.io/][HUGO]]. There was a GitHub action that
@@ -181,8 +178,11 @@ jobs:
    a binary called "StaticSitesClient" defined in the Docker image
    "mcr.microsoft.com/appsvc/staticappsclient"
 
-   Unfortunately, [[https://github.com/Azure/static-web-apps/issues/306][this component isn't open source]], so we
-   cannot dive into its details.
+   Unfortunately, [[https://github.com/Azure/static-web-apps/issues/306][this component isn't open source]], so we cannot dive
+   into its details. Reading the logs, shows that staticappsclient
+   utilizes the [[https://github.com/Microsoft/Oryx][Oryx]] build system to perform the actual build. The
+   actual logs during the build (in our case, the output of HUGO)
+   appears in the build logs which is very helpful for debugging.
 
 * Conclusion
   tbd
