@@ -107,9 +107,10 @@
    #+CAPTION: Environment
    [[/images/github-to-static-webapps/environments.png]]
 
+
 * Looking under the hood
-  All these automations out of the box are impressing, but how does it
-  actually work?
+   It's very impressing how easy it is to set this whole thing up and
+   how it integrates with GitHub.  But how does it actually work?
 
 ** GitHub actions
   After creating the resource, Azure Static Web Apps deploys the
@@ -185,4 +186,14 @@ jobs:
    appears in the build logs which is very helpful for debugging.
 
 * Conclusion
-  tbd
+  It's very impressing how easy it is to set this whole thing up and
+  how it integrates with GitHub.  Although there were possibilities to
+  host static websites before, it wasn't as seamless as in competitive
+  cloud services.  During the beta phase, there was the drawback that
+  Azure Web Apps has is tied to GitHub actions.  With the official
+  release, Azure Static Web Apps can also be integrated with Azure
+  DevOps. Through the open architecture described above, it would aso
+  be possible to integrate other build systems.  A nice thing is also
+  that Microsoft offers a free plan for personal websites, but (as
+  expected) without a SLA.
+
