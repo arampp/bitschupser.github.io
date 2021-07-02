@@ -3,6 +3,12 @@
 #+TAGS[]: azure
 #+DRAFT: false
 
+After watching Microsoft's [[https://docs.microsoft.com/en-us/events/learntv/swa-cts-june-2021/][release event to Azure Static Web Apps]], I
+wanted to have some hands on experience and see if it holds its
+promisees. So I migrated an existing static website from GitHub pages
+to Static Web Apps. This article describes the steps I accomplished
+and some observations.
+
 * Initial Situation
   A while ago, I created a [[https://github.com/BitSchupser/bitschupser.github.io][static GitHub page]] serving a blog using the
   static web page generator [[https://gohugo.io/][HUGO]]. There was a GitHub action that
