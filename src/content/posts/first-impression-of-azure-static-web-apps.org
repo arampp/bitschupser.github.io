@@ -1,0 +1,213 @@
+#+TITLE: "First Impression of Azure Static Web Apps"
+#+DATE: 2021-07-02T08:20:43+02:00
+#+TAGS[]: azure
+#+DRAFT: false
+
+After watching Microsoft's [[https://docs.microsoft.com/en-us/events/learntv/swa-cts-june-2021/][release event to Azure Static Web Apps]], I
+wanted to have some hands on experience and see if Microsoft holds its
+promise making it pretty easy to host a static website with Azure. I
+migrated an existing static website from GitHub pages to Static Web
+Apps. This article describes the steps I accomplished and some
+observations.
+
+* Initial Situation
+  A while ago, I created a [[https://github.com/BitSchupser/bitschupser.github.io][static GitHub page]] serving a blog using the
+  static web page generator [[https://gohugo.io/][HUGO]]. There was a GitHub action that
+  triggered new build and deployed the site every time I pushed to the
+  master branch.
+
+  The aim of the task described here is to keep the repository but
+  replace build, deployment and hosting by Azure Static Web Apps.
+
+* Setup
+** Preparations
+     Before we can start, some preparations and cleanup work needs to
+     be done:
+   1. Delete existing GitHub pages build action, environment, deploy
+      key and the gh-pages branch.
+   2. Delete the existing GitHub actions yaml file.
+   3. Create a new resource group in Azure portal.
+
+** Create the Resource
+
+   Creating the resource is straight forward. Choose "New Static Web
+   App", give it a name and a region. Under deployment details, we have
+   to connect the web app to our GitHub account and add the
+   organization, repository and branch the web app should be built
+   from.
+
+   #+CAPTION: Setting up the Static Web App resource
+   [[/images/github-to-static-webapps/create-resource.png]]
+
+   Under "Build Details" we can configure how the app gets
+   built. Luckily there is already a preset for HUGO, so we can build
+   the site out of the box. There are also other build presets for:
+
+   - Frameworks
+     - Angular
+     - React
+     - Svelte
+     - Vue.js
+     - (client-side) Blazor
+   - Static site generators
+     - Gatsby
+     - Hugo
+     - VuePress
+
+   For other technologies, we could choose "Custom" and configure the
+   build as a separate job in GitHub actions.
+
+   After creating the resource, the Static Web App automatically
+   checks out the source code, builds it and deploys it. A few minutes
+   later, the website can be visited under an auto-generated URL. Also
+   a valid SSL certificate has been applied automatically.
+
+** Add a custom domain
+   This auto-generated URL is nice for testing but it would be an
+   imposition for any users. In Azure portal, there is a menu entry
+   called "custom domains" where a custom domain can be
+   registered. After registration we copy and paste the provided CNAME
+   entry the DNS record of our domain provider, wait a few minutes and
+   the site is reachable through the custom domain.
+
+   #+CAPTION: Add a custom domain to the site
+   [[/images/github-to-static-webapps/add-custom-domain.png]]
+
+* Workflows
+** Modify the website
+   If we want to modify the website, we just have to change some
+   source code and push it to master. This will automatically trigger
+   another build & deploy run. A few minutes later, the changes become
+   visible on the website.
+
+   But publishing a change without decent testing is quite
+   dangerous. Usually we want to deploy the website into some staging
+   environment, verify it and deploy it to production if the test
+   passed. There is a mechanism that has a nice integration with
+   GitHubs Pull Request mechanism.
+
+** Pull Requests & Staging Environments
+   Usually we develop on branches and create a pull request that gets
+   reviewed by other developers prior to merging. We also want to do
+   automatic & manual tests before merging.
+
+   For this reason, Azure Static Web Apps hooks into GitHub's pull
+   request mechanism and starts another job when a pull request has
+   been created or updated:
+
+   #+CAPTION: Azure Static Web Apps integration into pull requests
+   [[/images/github-to-static-webapps/pr-build.png]]
+
+   This job builds the application and deploys it to a staging
+   environment. Staging environments have a -n attached to the
+   subdomain, where n is the staging environment number. The free tier
+   of Web Apps allows up to three staging environments.
+
+   If a pull request has been merged, the staging environment gets
+   removed automatically.
+
+   #+CAPTION: Staging environment
+   [[/images/github-to-static-webapps/staging-environment.png]]
+
+   Too keep track of existing environments, there is the Environments
+   menu entry in Azure portal:
+
+   #+CAPTION: Environment
+   [[/images/github-to-static-webapps/environments.png]]
+
+
+* Looking under the hood
+   It's very impressing how easy it is to set this whole thing up and
+   how it integrates with GitHub.  But how does it actually work?
+
+** GitHub actions
+  After creating the resource, Azure Static Web Apps commits the
+  following YAML file automatically to the repository:
+
+  #+BEGIN_SRC yaml
+  name: Azure Static Web Apps CI/CD
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - master
+
+jobs:
+  build_and_deploy_job:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    name: Build and Deploy Job
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Build And Deploy
+        id: builddeploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_POLITE_BEACH_075ECBD03 }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+          action: "upload"
+          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
+          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
+          app_location: "/src" # App source code path
+          api_location: "" # Api source code path - optional
+          output_location: "public" # Built app content directory - optional
+          ###### End of Repository/Build Configurations ######
+
+  close_pull_request_job:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    name: Close Pull Request Job
+    steps:
+      - name: Close Pull Request
+        id: closepullrequest
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_POLITE_BEACH_075ECBD03 }}
+          action: "close"
+  #+END_SRC
+
+  It defines two jobs: One gets triggered when a pull request will be
+  created or updated, the other ones get triggered when a pull request
+  got closed. At heart, they do both the same: calling another action
+  called "Azure/static-web-apps-deploy@v1" with different parameters.
+
+  To authenticate, it passes an API_TOKEN that also has been deployed
+  to the GitHub repository when the resource has been created.
+
+** Azure Static Web Apps Deploy Action
+   Searching GitHub, we find a [[https://github.com/Azure/static-web-apps-deploy][repository]] containing the source code
+   of the "Azure/static-web-apps-deploy@v1" action. This repository
+   defines the action with all its parameters but calls at the bottom
+   a binary called "StaticSitesClient" defined in the Docker image
+   "mcr.microsoft.com/appsvc/staticappsclient"
+
+   Unfortunately, [[https://github.com/Azure/static-web-apps/issues/306][this component isn't open source]], so we cannot dive
+   into its details. Reading the logs, shows that staticappsclient
+   utilizes the [[https://github.com/Microsoft/Oryx][Oryx]] build system to perform the actual build. The
+   actual logs during the build (in our case, the output of HUGO)
+   appear in the build logs which can very helpful for tracing errors.
+
+* Conclusion
+  It's very impressing how easy it is to set this whole thing up and
+  how nice it integrates with GitHub.  Although there were
+  possibilities to host static websites before, it wasn't such a
+  seamless experience as competitive cloud providers offered. So
+  Microsoft is adding a long missing piece to it's Azure landscape.
+
+  During the beta phase, there was crtic that Azure Web Apps has is
+  tied to GitHub actions only.  With the official release, Azure
+  Static Web Apps can also be [[https://docs.microsoft.com/en-us/azure/static-web-apps/publish-devops][integrated with Azure DevOps]]. Through
+  the open architecture described above, it would aso be possible to
+  integrate other build systems (which is announced, but not yet
+  officialy supported).
+
+  A nice thing is also that Microsoft offers a free plan for personal
+  websites, but (as expected) without a SLA. So the hurdle to get
+  started is very low.
+
