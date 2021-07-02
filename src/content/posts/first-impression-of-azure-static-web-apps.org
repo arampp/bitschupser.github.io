@@ -1,5 +1,5 @@
-#+TITLE: "First Look Into Azure Static Web Apps"
-#+DATE: 2021-07-01T20:57:43+02:00
+#+TITLE: "First Impression of Azure Static Web Apps"
+#+DATE: 2021-07-02T08:20:43+02:00
 #+TAGS[]: azure
 #+DRAFT: false
 
