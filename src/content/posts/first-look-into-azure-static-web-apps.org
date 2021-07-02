@@ -4,10 +4,11 @@
 #+DRAFT: false
 
 After watching Microsoft's [[https://docs.microsoft.com/en-us/events/learntv/swa-cts-june-2021/][release event to Azure Static Web Apps]], I
-wanted to have some hands on experience and see if it holds its
-promisees. So I migrated an existing static website from GitHub pages
-to Static Web Apps. This article describes the steps I accomplished
-and some observations.
+wanted to have some hands on experience and see if Microsoft holds its
+promise making it pretty easy to host a static website with Azure. I
+migrated an existing static website from GitHub pages to Static Web
+Apps. This article describes the steps I accomplished and some
+observations.
 
 * Initial Situation
   A while ago, I created a [[https://github.com/BitSchupser/bitschupser.github.io][static GitHub page]] serving a blog using the
@@ -20,7 +21,8 @@ and some observations.
 
 * Setup
 ** Preparations
-     Before we can start, there need some preparations and cleanup work to be done:
+     Before we can start, some preparations and cleanup work needs to
+     be done:
    1. Delete existing GitHub pages build action, environment, deploy
       key and the gh-pages branch.
    2. Delete the existing GitHub actions yaml file.
@@ -53,7 +55,7 @@ and some observations.
      - VuePress
 
    For other technologies, we could choose "Custom" and configure the
-   build as a step in GitHub actions.
+   build as a separate job in GitHub actions.
 
    After creating the resource, the Static Web App automatically
    checks out the source code, builds it and deploys it. A few minutes
@@ -61,12 +63,12 @@ and some observations.
    a valid SSL certificate has been applied automatically.
 
 ** Add a custom domain
-   This auto-generated URL is nice for testing but would be an
-   imposition for any users. There is a menu entry called "custom
-   domains" where a custom domain can be registered. After
-   registration we copy and paste the provided CNAME entry the DNS
-   record of our domain provider, wait a few minutes and the site is
-   reachable through the custom domain.
+   This auto-generated URL is nice for testing but it would be an
+   imposition for any users. In Azure portal, there is a menu entry
+   called "custom domains" where a custom domain can be
+   registered. After registration we copy and paste the provided CNAME
+   entry the DNS record of our domain provider, wait a few minutes and
+   the site is reachable through the custom domain.
 
    #+CAPTION: Add a custom domain to the site
    [[/images/github-to-static-webapps/add-custom-domain.png]]
@@ -89,9 +91,9 @@ and some observations.
    reviewed by other developers prior to merging. We also want to do
    automatic & manual tests before merging.
 
-   For this reason, Azure Static Web Apps hooks into the pull request
-   mechanism and starts another job when a pull request has been
-   created or updated:
+   For this reason, Azure Static Web Apps hooks into GitHub's pull
+   request mechanism and starts another job when a pull request has
+   been created or updated:
 
    #+CAPTION: Azure Static Web Apps integration into pull requests
    [[/images/github-to-static-webapps/pr-build.png]]
@@ -119,8 +121,8 @@ and some observations.
    how it integrates with GitHub.  But how does it actually work?
 
 ** GitHub actions
-  After creating the resource, Azure Static Web Apps deploys the
-  following YAML file to the repo:
+  After creating the resource, Azure Static Web Apps commits the
+  following YAML file automatically to the repository:
 
   #+BEGIN_SRC yaml
   name: Azure Static Web Apps CI/CD
@@ -189,17 +191,23 @@ jobs:
    into its details. Reading the logs, shows that staticappsclient
    utilizes the [[https://github.com/Microsoft/Oryx][Oryx]] build system to perform the actual build. The
    actual logs during the build (in our case, the output of HUGO)
-   appears in the build logs which is very helpful for debugging.
+   appear in the build logs which can very helpful for tracing errors.
 
 * Conclusion
   It's very impressing how easy it is to set this whole thing up and
-  how it integrates with GitHub.  Although there were possibilities to
-  host static websites before, it wasn't as seamless as in competitive
-  cloud services.  During the beta phase, there was the drawback that
-  Azure Web Apps has is tied to GitHub actions.  With the official
-  release, Azure Static Web Apps can also be [[https://docs.microsoft.com/en-us/azure/static-web-apps/publish-devops][integrated with Azure
-  DevOps]]. Through the open architecture described above, it would aso
-  be possible to integrate other build systems.  A nice thing is also
-  that Microsoft offers a free plan for personal websites, but (as
-  expected) without a SLA.
+  how nice it integrates with GitHub.  Although there were
+  possibilities to host static websites before, it wasn't such a
+  seamless experience as competitive cloud providers offered. So
+  Microsoft is adding a long missing piece to it's Azure landscape.
+
+  During the beta phase, there was crtic that Azure Web Apps has is
+  tied to GitHub actions only.  With the official release, Azure
+  Static Web Apps can also be [[https://docs.microsoft.com/en-us/azure/static-web-apps/publish-devops][integrated with Azure DevOps]]. Through
+  the open architecture described above, it would aso be possible to
+  integrate other build systems (which is announced, but not yet
+  officialy supported).
+
+  A nice thing is also that Microsoft offers a free plan for personal
+  websites, but (as expected) without a SLA. So the hurdle to get
+  started is very low.
 
