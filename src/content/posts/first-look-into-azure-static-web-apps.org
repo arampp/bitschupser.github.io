@@ -197,8 +197,8 @@ jobs:
   host static websites before, it wasn't as seamless as in competitive
   cloud services.  During the beta phase, there was the drawback that
   Azure Web Apps has is tied to GitHub actions.  With the official
-  release, Azure Static Web Apps can also be integrated with Azure
-  DevOps. Through the open architecture described above, it would aso
+  release, Azure Static Web Apps can also be [[https://docs.microsoft.com/en-us/azure/static-web-apps/publish-devops][integrated with Azure
+  DevOps]]. Through the open architecture described above, it would aso
   be possible to integrate other build systems.  A nice thing is also
   that Microsoft offers a free plan for personal websites, but (as
   expected) without a SLA.
