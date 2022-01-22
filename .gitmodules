@@ -1,3 +1,6 @@
 [submodule "src/themes/uBlogger"]
 	path = src/themes/uBlogger
 	url = https://github.com/upagge/uBlogger.git
+[submodule "src/themes/PaperMod"]
+	path = src/themes/PaperMod
+	url = https://github.com/adityatelange/hugo-PaperMod.git

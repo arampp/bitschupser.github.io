@@ -2,7 +2,7 @@ baseURL = "https://staging.alexrampp.de/"
 languageCode = "en-us"
 defaultContentLanguage = "en"
 title = "My personal blog"
-theme = "uBlogger"
+theme = "PaperMod"
 
 [permalinks]
   posts = '/:year/:month/:title/'
