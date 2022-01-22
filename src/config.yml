@@ -1,7 +1,7 @@
 baseURL: 'https://staging.alexrampp.de/'
 languageCode: en-us
 defaultContentLanguage: en
-title: Alex's personal homepage
+title: Alex's Personal Web Site
 theme: PaperMod
 enableEmoji: true
 enableRobotsTXT: true
