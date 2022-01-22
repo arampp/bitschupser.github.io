@@ -2,6 +2,8 @@
 title: "Rückblick auf die Night of Patterns bei den Dodneddern"
 date: 2017-02-25T19:11:04+01:00
 draft: true
+aliases:
+  - /2017/02/25/rueckblick-auf-die-night-of-patterns-bei-den-dodneddern/
 tags:
   - community
   - patterns

@@ -2,6 +2,7 @@
 #+DATE: 2020-11-07T10:10:21+02:00
 #+TAGS[]: emacs orgmode note-taking
 #+DRAFT: false
+#+ALIASES[]: /2020/11/07/how-to-paste-images-into-emacs-org-mode-running-in-windows-subsystem-for-linux/
 
 I organize myself by implementing [[https://en.wikipedia.org/wiki/Getting_Things_Done][Getting Things Done]] using plain text
 files processed by Emacs org-mode. Since Emacs origins from the Unix

@@ -2,6 +2,10 @@
 title: "5 Fallen in Der Softwareentwicklung"
 date: 2017-09-20T08:00:00+01:00
 draft: true
+aliases:
+  - /2017/09/20/5-fallen-in-der-softwareentwicklung/
+tags:
+  - konferenz 
 ---
 
 

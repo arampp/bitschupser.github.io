@@ -2,6 +2,12 @@
 title: "Seek, Sense, Share – 3 Schritte zum persönlichen Wissensmanagement"
 date: 2017-08-20T18:40:15+01:00
 draft: true
+aliases:
+  - /2017/08/20/seek-sense-share-3-schritte-zum-persoenlichen-wissensmanagement/
+tags:
+  - pkm
+  - personal-leadership
+  - note-taking
 ---
 
 Wir alle nehmen täglich sehr viele Informationen auf. Wir konsumieren jede Menge Blog-Posts, Tweets, Zeitschriftenartikel, Videos, Bücher usw.. Allerdings habe ich oft das Gefühl, dass dabei zu wenig hängen bleibt. Wichtiges Wissen scheint regelrecht durch die Finger zu rieseln. Einfach ein paar schnelle Notizen zu machen ist auch nur eine bedingte Lösung, da Notizen ohne System schnell zum Chaos führen.
