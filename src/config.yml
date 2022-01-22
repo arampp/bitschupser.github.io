@@ -58,13 +58,20 @@ menu:
     #   url: /categories/
     #   title: ''
     #   weight: 3
+    - identifier: search
+      pre: ''
+      post: ''
+      name: Search
+      url: /search/
+      title: ''
+      weight: 4
     - identifier: archives
       pre: ''
       post: ''
       name: Archive
       url: /archives/
       title: ''
-      weight: 4
+      weight: 5
 
 markup:
   highlight:
