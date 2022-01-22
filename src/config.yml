@@ -1,0 +1,37 @@
+baseURL: 'https://staging.alexrampp.de/'
+languageCode: en-us
+defaultContentLanguage: en
+title: My personal blog
+theme: PaperMod
+
+permalinks:
+  posts: '/:year/:month/:title/'
+
+menu:
+  main:
+    - identifier: posts
+      pre: ''
+      post: ''
+      name: Posts
+      url: /posts/
+      title: ''
+      weight: 1
+    - identifier: tags
+      pre: ''
+      post: ''
+      name: Tags
+      url: /tags/
+      title: ''
+      weight: 2
+    - identifier: categories
+      pre: ''
+      post: ''
+      name: Categories
+      url: /categories/
+      title: ''
+      weight: 3
+      
+markup:
+  highlight:
+    noClasses: false
+
