@@ -7,8 +7,8 @@ enableRobotsTXT: true
 
 params:
   homeInfoParams:
-    Title: Hi there
-    Content: Welcome to my personal web site!
+    Title: Hi there!
+    Content: Following an old tradition prior to the Web 2.0, I still foster a personal web site.
   fuseOpts:
     isCaseSensitive: false
     shouldSort: true
@@ -29,7 +29,7 @@ params:
     - name: "dev"
       url: "https://dev.to/bitschupser"
     - name: "github"
-      url: "github.com/bitSchupser/"
+      url: "https://github.com/bitSchupser/"
 
 outputs:
     home:
