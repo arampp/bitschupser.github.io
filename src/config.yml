@@ -1,8 +1,36 @@
 baseURL: 'https://staging.alexrampp.de/'
 languageCode: en-us
 defaultContentLanguage: en
-title: My personal blog
+title: Alex's personal homepage
 theme: PaperMod
+enableEmoji: true
+enableRobotsTXT: true
+
+params:
+  homeInfoParams:
+    Title: Hi there
+    Content: >
+      Welcome to my personal web site!<br/>
+
+  socialIcons: # optional
+    - name: "twitter"
+      url: "https://twitter.com/bitschupser"
+    - name: "linkedin"
+      url: "https://www.linkedin.com/in/alexander-rampp-422834204/"
+    - name: "dev"
+      url: "https://dev.to/bitschupser"
+    - name: "github"
+      url: "github.com/bitSchupser/"
+
+outputs:
+    home:
+        - HTML
+        - RSS
+        - JSON
+
+taxonomies:
+    category: categories
+    tag: tags
 
 permalinks:
   posts: '/:year/:month/:title/'
@@ -23,13 +51,13 @@ menu:
       url: /tags/
       title: ''
       weight: 2
-    - identifier: categories
-      pre: ''
-      post: ''
-      name: Categories
-      url: /categories/
-      title: ''
-      weight: 3
+    # - identifier: categories
+    #   pre: ''
+    #   post: ''
+    #   name: Categories
+    #   url: /categories/
+    #   title: ''
+    #   weight: 3
     - identifier: archives
       pre: ''
       post: ''
