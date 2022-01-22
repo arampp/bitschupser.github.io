@@ -1,7 +1,7 @@
 ---
 title: "Seek, Sense, Share – 3 Schritte zum persönlichen Wissensmanagement"
 date: 2017-08-20T18:40:15+01:00
-draft: true
+draft: false
 aliases:
   - /2017/08/20/seek-sense-share-3-schritte-zum-persoenlichen-wissensmanagement/
 tags:

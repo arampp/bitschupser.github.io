@@ -1,7 +1,7 @@
 ---
 title: "Resümee zur Clean Code Days Konferenz"
 date: 2017-06-23T19:02:07+01:00
-draft: true
+draft: false
 aliases: 
   - /2017/06/23/resuemee-zur-clean-code-days-konferenz/
 tags:

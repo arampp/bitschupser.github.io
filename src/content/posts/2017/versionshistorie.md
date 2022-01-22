@@ -1,7 +1,7 @@
 ---
 title: "Tipps für eine aussagekräftige Versionshistorie"
 date: 2017-02-23T19:22:56+01:00
-draft: true
+draft: false
 tags:
   - dokumentation
   - git
