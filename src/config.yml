@@ -47,11 +47,11 @@ permalinks:
 
 menu:
   main:
-    - identifier: posts
+    - identifier: articles
       pre: ''
       post: ''
-      name: Posts
-      url: /posts/
+      name: Articles
+      url: /articles/
       title: ''
       weight: 1
     - identifier: tags
@@ -82,6 +82,13 @@ menu:
       url: /archives/
       title: ''
       weight: 5
+    - identifier: about
+      pre: ''
+      post: ''
+      name: About
+      url: /about/
+      title: ''
+      weight: 6
 
 markup:
   highlight:
