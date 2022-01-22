@@ -1,4 +1,3 @@
-baseURL: 'https://staging.alexrampp.de/'
 languageCode: en-us
 defaultContentLanguage: en
 title: Alex's Personal Web Site
@@ -89,6 +88,13 @@ menu:
       url: /about/
       title: ''
       weight: 6
+    - identifier: impressum
+      pre: ''
+      post: ''
+      name: Impressum
+      url: /impressum/
+      title: ''
+      weight: 7
 
 markup:
   highlight:

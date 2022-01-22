@@ -7,9 +7,7 @@ searchHidden: true
 
 ## Angaben gemäß § 5 TMG
 
-Alexander Rampp
-Körnerstr. 3a
-86157 Augsburg
+Alexander Rampp, Körnerstr. 3a, 86157 Augsburg
 
 ## Kontakt
 
@@ -17,9 +15,7 @@ E-Mail: Webmaster /ätt/ alexrampp /Punkt/ de
 
 ## Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV
 
-Alexander Rampp
-Körnerstr. 3a
-86157 Augsburg
+Alexander Rampp, Körnerstr. 3a, 86157 Augsburg
 
 Quelle: [https://www.e-recht24.de](https://www.e-recht24.de)
 
